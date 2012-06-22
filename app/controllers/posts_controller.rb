@@ -13,9 +13,13 @@ class PostsController < ApplicationController
   end
 
   def mycreate
-    @mydata = Post.create_new_entry(params[:post])
+    @post = Post.create_new_entry(params[:post])
     respond_to do |format|
-      format.html { redirect_to mydatalist_posts_path, :notice => 'User was successfully created.' }
+      if @post.save
+      format.html { redirect_to mydatalist_posts_path, :notice => 'Data was successfully created.' }
+      else
+        format.html { render :action => "myform" }
+      end
     end
   end
 
@@ -48,6 +52,8 @@ def myupdate
   respond_to do |format|
     if @post.update_attributes(params[:post])
       format.html { redirect_to mydatalist_posts_path, :notice => 'Post was successfully updated.' }
+    else
+      format.html { render :action => "myedit" }
     end
     end
 end
