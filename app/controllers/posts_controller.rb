@@ -23,8 +23,18 @@ class PostsController < ApplicationController
     end
   end
 
+  def create_comment
+    @post = Post.find(params[:id])
+    @comment = @post.posts_comments.new(params[:posts_comment])
+      if @comment.save
+        redirect_to myshowdata_post_path, :notice => 'Comment was successfully created.'
+      end
+  end
+
   def myshowdata
     @post = Post.find(params[:id])
+    @comments = @post.posts_comments
+    @comment = @post.posts_comments.new
     respond_to do |format|
       format.html # myshowdata.html.erb
     end
@@ -42,8 +52,16 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to mydatalist_posts_path }
+      format.html { redirect_to myshowdata_post_path }
       end
+  end
+
+  def delete_comment
+    @comment = PostsComment.find(params[:id])
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to myshowdata_post_path }
+    end
   end
 
 

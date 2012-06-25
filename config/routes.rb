@@ -5,6 +5,8 @@ PostAssignment::Application.routes.draw do
       get "myedit"
       get "mydelete"
       put "myupdate"
+      post "create_comment"
+      delete "delete_comment"
     end
 
     collection do
@@ -12,6 +14,7 @@ PostAssignment::Application.routes.draw do
       get "myform"
       post "mycreate"
       get "mydatalist"
+
 
     end
   end
