@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="webonise">
     <words>
+      <w>getcomment</w>
       <w>mycreate</w>
       <w>mydata</w>
       <w>mydatalist</w>
@@ -10,6 +11,7 @@
       <w>myshowdata</w>
       <w>myupdate</w>
       <w>newform</w>
+      <w>showcomments</w>
     </words>
   </dictionary>
 </component>

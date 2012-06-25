@@ -16,7 +16,7 @@ class PostsController < ApplicationController
     @post = Post.create_new_entry(params[:post])
     respond_to do |format|
       if @post.save
-      format.html { redirect_to mydatalist_posts_path, :notice => 'Data was successfully created.' }
+        format.html { redirect_to mydatalist_posts_path, :notice => 'Data was successfully created.' }
       else
         format.html { render :action => "myform" }
       end
@@ -24,11 +24,24 @@ class PostsController < ApplicationController
   end
 
   def create_comment
+    #@post = Post.find(params[:id])
+    #@comment = @post.posts_comments.new(params[:posts_comment])
+    # if @comment.save
+    # redirect_to myshowdata_post_path, :notice => 'Comment was successfully created.'
+    #end
     @post = Post.find(params[:id])
-    @comment = @post.posts_comments.new(params[:posts_comment])
-      if @comment.save
-        redirect_to myshowdata_post_path, :notice => 'Comment was successfully created.'
-      end
+
+
+    @new_comment = @post.posts_comments.new(params[:posts_comment])
+    @new_comment.save
+    @comments = @post.posts_comments
+    logger.info @comments.inspect
+    respond_to do |format|
+      format.js
+    end
+
+
+
   end
 
   def myshowdata
@@ -53,7 +66,7 @@ class PostsController < ApplicationController
     @post.destroy
     respond_to do |format|
       format.html { redirect_to myshowdata_post_path }
-      end
+    end
   end
 
   def delete_comment
@@ -65,14 +78,14 @@ class PostsController < ApplicationController
   end
 
 
-def myupdate
-  @post = Post.find(params[:id])
-  respond_to do |format|
-    if @post.update_attributes(params[:post])
-      format.html { redirect_to mydatalist_posts_path, :notice => 'Post was successfully updated.' }
-    else
-      format.html { render :action => "myedit" }
+  def myupdate
+    @post = Post.find(params[:id])
+    respond_to do |format|
+      if @post.update_attributes(params[:post])
+        format.html { redirect_to mydatalist_posts_path, :notice => 'Post was successfully updated.' }
+      else
+        format.html { render :action => "myedit" }
+      end
     end
-    end
-end
+  end
 end
